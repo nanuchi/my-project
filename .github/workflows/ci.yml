@@ -31,7 +31,7 @@ jobs:
     - name: Build and Push docker image
       uses: mr-smithers-excellent/docker-build-push@v4
       with:
-        image: docker-hub-repo/image-name
+        image: nanajanashia/demo-app
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}   
