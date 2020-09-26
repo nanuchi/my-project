@@ -27,3 +27,5 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+    - name: Build Docker Image
+      run: docker build . 
