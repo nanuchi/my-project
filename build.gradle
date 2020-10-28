@@ -9,6 +9,29 @@ version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
+apply plugin: 'maven-publish'
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifact("build/libs/my-app-$version"+".jar") {
+                extension 'jar'
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name 'nexus'
+            url "http://167.99.248.163:8081/repository/maven-snapshots/"
+            credentials {
+                username project.repoUser
+                password project.repoPassword
+            }
+        }
+    }
+}
+
 repositories {
     mavenCentral()
 }
@@ -17,4 +40,5 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compile group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '5.2'
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'org.mongodb', name: 'mongodb-driver', version: '3.12.7'
 }
