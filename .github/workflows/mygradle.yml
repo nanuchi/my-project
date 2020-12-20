@@ -24,3 +24,11 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+    
+    - name: Build and Push to Docker
+      uses: mr-smithers-excellent/docker-build-push@v5
+      with:
+       image: arislankareem/website-autobuild
+       registry: docker.io
+       username: ${{ secrets.DOCKER_USERNAME }}
+       password: ${{ secrets.DOCKER_PASSWORD }}
