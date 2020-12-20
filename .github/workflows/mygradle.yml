@@ -28,7 +28,7 @@ jobs:
     - name: Build and Push to Docker
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
-       image: arislankareem/website-autobuild
+       image: arislankareem/mycicd-demo
        registry: docker.io
        username: ${{ secrets.DOCKER_USERNAME }}
        password: ${{ secrets.DOCKER_PASSWORD }}
