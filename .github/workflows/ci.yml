@@ -1,38 +1,55 @@
-# This workflow will build a Java project with Gradle
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Java CI with Gradle
+name: Node.js CI
+# this is to describe what workflow is doing
 
 on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+# above are the events that are mentioned .. any times event happens we can trigger a workflow
+# below is the workflow that will be triggered on event trigger
 
 jobs:
-  build-java:
+  build:
+  # name of the job .. can be anything .. it groups set of actions
 
     runs-on: ubuntu-latest
-    
+      # ${{matrix.os}}
+    strategy:
+      matrix:
+        # os: [ubuntu-latest, windows-latest, macOS-latest]
+        node-version: [15.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
     steps:
     - uses: actions/checkout@v2
+    # this is the place where precreated or predefined actions are hosted/written
+    # this checkout is for .. we ned to checkout the repo/project .. they have written the script .. we just need to
+    # all actions are repos ..  this is the version of release .. some community release some
 
-    - name: Set up JDK 1.8
-      uses: actions/setup-java@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
       with:
-        java-version: 1.8
+        node-version: ${{ matrix.node-version }}
+    - run: npm ci
+    # this is used for installing dependencies OR dev dependencies from a package-lock.json file
+    # dev dependencies are modules which are only required during development,
+    # dependencies are modules which are also required at runtime
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+    - run: npm run build --if-present
+    # build the app for production to the build folder. It correctly bundles React in production mode and optimises the build for best perfomances
 
-    - name: Build with Gradle
-      run: ./gradlew build
+    - run: npm test
 
     - name: Build and Push Docker Image
       uses: mr-smithers-excellent/docker-build-push@v4
       with:
-        image: nanajanashia/demo-app
+        image: node:16-alpine3.11
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-         
+      # uses:
+      # with:
