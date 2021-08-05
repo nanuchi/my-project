@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: us.gcr.io/inner-synapse-321408/randocats
+          image: us.gcr.io/inner-synapse-321408/randocats:e36cadb39054d78bd4bb30947fae2cf5b78bf25b
           ports:
             - containerPort: 8080
           
