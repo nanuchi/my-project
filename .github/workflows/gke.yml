@@ -9,11 +9,11 @@ on:
 
 # Environment variables available to all jobs and steps in this workflow
 env:
-  GKE_PROJECT: randocats
+  GKE_PROJECT: My First Project
   GKE_EMAIL: ${{ secrets.GKE_EMAIL }}
   GITHUB_SHA: ${{ github.sha }}
-  GKE_ZONE: us-east1-b
-  GKE_CLUSTER: randocats-cluster
+  GKE_ZONE: us-central1-c
+  GKE_CLUSTER: cluster-1
   IMAGE: randocats
   REGISTRY_HOSTNAME: us.gcr.io
   DEPLOYMENT_NAME: randocats
