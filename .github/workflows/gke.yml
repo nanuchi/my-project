@@ -36,8 +36,8 @@ jobs:
 
     - name: Build with Gradle
       run: ./gradlew build
-    #- name: Checkout
-    #  uses: actions/checkout@master
+    - name: test cases check with gradle
+      run: ./gradlew test
 
     # Setup gcloud CLI
                 
