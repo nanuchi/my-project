@@ -40,7 +40,7 @@ jobs:
     #  uses: actions/checkout@master
 
     # Setup gcloud CLI
-    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+    - uses: google-github-actions/deploy-cloudrun@main
       with:
         version: '270.0.0'
         service_account_email: ${{ secrets.GKE_EMAIL }}
