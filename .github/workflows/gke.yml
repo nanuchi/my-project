@@ -16,7 +16,7 @@ env:
   GKE_CLUSTER: cluster-1
   IMAGE: randocats
   REGISTRY_HOSTNAME: us.gcr.io
-  DEPLOYMENT_NAME: randocats
+  DEPLOYMENT_NAME: knote
 
 jobs:
   setup-build-publish-deploy:
@@ -75,7 +75,7 @@ jobs:
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
       run: |
-        gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project inner-synapse-321408
+        gcloud container clusters get-credentials $GKE_CLUSTER --zone us-central1-c --project $GKE_PROJECT
         kubectl apply -f deploy/
         kubectl rollout status deployment/$DEPLOYMENT_NAME
         kubectl get services -o wide
