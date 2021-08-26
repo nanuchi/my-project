@@ -1,6 +1,6 @@
 # This workflow will build a docker container, publish it to Google Container Registry, and Deploy it to GKE when a release is created
 
-name: Build and Deploy to GKE
+name: Build and Sonar
 
 on:
   push:
