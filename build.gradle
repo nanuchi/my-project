@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.2.2.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id "org.sonarqube" version "3.0"
 }
 
 group 'com.example'
@@ -19,6 +20,4 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
-plugins {
-  id "org.sonarqube" version "3.0"
-}
+
