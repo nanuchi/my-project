@@ -26,9 +26,15 @@ jobs:
 
     - name: Build with Gradle
       run: ./gradlew build
-    - name: Analyze with SonarCloud
-      uses: sonarsource/sonarcloud-github-action@master
-      env:
-          GITHUB_TOKEN: ${{ secrets.GCP_GITHUB }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+ - name: Grant execute permission for gradlew
+      run: |
+          cd sonarqube-scanner-gradle/gradle-basic/ 
+          ls 
+          chmod +x gradlew
+    - name: Build with Gradle
+      run: ./gradlew build 
+    - name: sonar test cases sent
+      run: ./gradlew sonarqube  -Dsonar.projectKey=Test-java -Dsonar.host.url=http://34.102.242.212 -Dsonar.login=00f36a1c5f11cba114b458c538f292c196f1d103
+
+
    
