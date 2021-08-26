@@ -31,17 +31,10 @@ jobs:
           chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build 
-
-    - name: Setup sonarqube
-      uses: warchant/setup-sonar-scanner@v3
-      
-    - name: Run sonarqube
-      env:
-         GITHUB_TOKEN: ${{ secrets.GCP_GITHUB }}
-      run: sonar-scanner
-       -Dsonar.login=00f36a1c5f11cba114b458c538f292c196f1d103     
-       -Dsonar.host.url=http://34.102.242.212       
-       -Dsonar.projectKey=Test-java 
+    - name: sonar
+      run: ./gradlew sonarqube -Dsonar.projectKey=sonarqube1  -Dsonar.host.url=http://34.102.242.212   -Dsonar.login=6ade60b5e3567f125e4b86e229e5bd16f046d966
+  
+ 
 
       
 
