@@ -19,4 +19,6 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
-
+plugins {
+  id "org.sonarqube" version "3.0"
+}
