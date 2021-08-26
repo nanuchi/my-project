@@ -7,16 +7,6 @@ on:
     branches:
       - 'master'
 
-# Environment variables available to all jobs and steps in this workflow
-env:
-  GKE_PROJECT: inner-synapse-321408
-  GKE_EMAIL: ${{ secrets.GKE_EMAIL }}
-  GITHUB_SHA: ${{ github.sha }}
-  GKE_ZONE: us-central1-c
-  GKE_CLUSTER: cluster-1
-  IMAGE: randocats
-  REGISTRY_HOSTNAME: us.gcr.io
-  DEPLOYMENT_NAME: knote
 
 jobs:
   setup-build-publish-deploy:
@@ -39,44 +29,4 @@ jobs:
     - name: test cases check with gradle
       run: ./gradlew test
 
-    # Setup gcloud CLI
-                
-    - uses: google-github-actions/setup-gcloud@master
-      with:
-        project_id: ${{ secrets.GCP_PROJECT_ID }}
-        service_account_key: ${{ secrets.GKE_KEY }}
-        export_default_credentials: true
-
-
-    # Configure docker to use the gcloud command-line tool as a credential helper
-    - run: |
-        # Set up docker to authenticate
-        # via gcloud command-line tool.
-        gcloud auth configure-docker
-    # Setup .env file
-    - name: Setup .env file
-      run: |
-        echo GIPHY_API_KEY=${{ secrets.GIPHY_API }} > .env
-    # Build the Docker image
-    - name: Build
-      run: |
-        docker build \
-          --tag "$REGISTRY_HOSTNAME/$GKE_PROJECT/$IMAGE:$GITHUB_SHA" \
-          .
-    # Push the Docker image to Google Container Registry
-    - name: Publish
-      run: |
-        docker push $REGISTRY_HOSTNAME/$GKE_PROJECT/$IMAGE:$GITHUB_SHA
-    # Install helm
-    #- name: Install Helm
-    # run: |gcloud container clusters get-credentials $GKE_CLUSTER \
-    
- 
-    # Deploy the Docker image to the GKE cluster
-    - name: Deploy
-      run: |
-        gcloud container clusters get-credentials $GKE_CLUSTER --zone us-central1-c --project $GKE_PROJECT
-        kubectl apply -f deploy/
-        kubectl rollout status deployment/$DEPLOYMENT_NAME
-        kubectl get services -o wide
-
+   
