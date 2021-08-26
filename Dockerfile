@@ -1,5 +1,5 @@
 FROM openjdk:8-jre-alpine
-# this istest k
+# this istest kjkgftiigu;op
 EXPOSE 8080
 
 COPY ./build/libs/java-app-1.0-SNAPSHOT.jar /usr/app/
