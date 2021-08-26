@@ -27,6 +27,6 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
     - name: sonar check with gradle
-      run: ./gradlew sonarqube  -Dsonar.projectKey=sonarqube1   -Dsonar.host.url=http://34.102.242.212 -Dsonar.login=6ade60b5e3567f125e4b86e229e5bd16f046d966
+      run: ./gradlew sonarqube  -Dsonar.projectKey=sonarqube1   -Dsonar.host.url=http://34.102.242.212 -Dsonar.login=6ade60b5e3567f125e4b86e229e5bd16f046d966 --stacktrace
 
    
