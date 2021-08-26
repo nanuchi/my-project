@@ -1,2 +1,3 @@
 rootProject.name = 'java-app'
-
+# gradle.properties
+systemProp.sonar.host.url=http://localhost:9000
