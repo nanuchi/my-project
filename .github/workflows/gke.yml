@@ -28,7 +28,7 @@ jobs:
       run: ./gradlew build
     - name: Analyze with SonarCloud
       uses: sonarsource/sonarcloud-github-action@master
-        env:
+      env:
           GITHUB_TOKEN: ${{ secrets.GCP_GITHUB }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
    
