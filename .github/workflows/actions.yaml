@@ -1,5 +1,14 @@
-- name: Get Pokemon name
-  uses: ./ # Uses an action in the root directory
-  id: pokemon
-  with:
-    pokemon_id: 150
+on: [push]
+
+jobs:
+  custom_test:
+    runs-on: ubuntu-latest
+    name: We test it locally with act
+    steps:
+      - name: Get Pokemon name
+        uses: philschmid/blog-custom-github-action@master
+        id: pokemon
+        with:
+          pokemon_id: 150
+      - name: Get the pokemon
+        run: echo "${{ steps.pokemon.outputs.pokemon_name }} attack"
