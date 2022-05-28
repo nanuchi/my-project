@@ -1,32 +1,38 @@
 # This workflow will build a Java project with Gradle
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
 
-name: Java CI with Gradle
+name: Java CI with Gradle # Used to describe what the workflow does.
 
+# This contains the list of events, according to which an action/workflow can be triggered.
 on:
   push:
-    branches: [ master ]
+    branches: [ master ] # Everytime someone "pushes" to the master branch, the below written workflow is triggered.
   pull_request:
-    branches: [ master ]
+    branches: [ master ] # Everytime someone creates a "pull_request" on the master branch. the below written workflow is triggered.
 
+# The list of workflows that get triggered when the above actions take place
+# A job groups set of actions that need to happen.
 jobs:
-  build-java:
+  build-java: # Name of the job
 
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v2
+    # Whenever we need to build test or run application, we need to checkout first.
+    - uses: actions/checkout@v2 # "Actions path" hosts all the predefined actions. this "checkout" is a file, that contains all the logic
+                                # that needs to be run, in order to perform your desired actions.
 
     - name: Set up JDK 1.8
-      uses: actions/setup-java@v1
+      uses: actions/setup-java@v1 # this is also present in "action.yaml" file in "Github actions" repo. It prepares our environment with
+                                  # java version specified.
       with:
         java-version: 1.8
 
     - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-
+      run: chmod +x gradlew # we use "uses" to select an action and "run" to run a command-line command.
+      # The above command to make gradlew file executable
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew build # runs the file.
 
     - name: Build and Push Docker Image
       uses: mr-smithers-excellent/docker-build-push@v4
@@ -34,5 +40,5 @@ jobs:
         image: nanajanashia/demo-app
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+        password: ${{ secrets.DOCKER_PASSWORD }}s
          
