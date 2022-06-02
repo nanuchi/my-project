@@ -1,8 +1,11 @@
-FROM openjdk:8-jre-alpine
-
-EXPOSE 8080
-
-COPY ./build/libs/my-app-1.0-SNAPSHOT.jar /usr/app/
-WORKDIR /usr/app
-
-ENTRYPOINT ["java", "-jar", "my-app-1.0-SNAPSHOT.jar"]
+FROM python:3.10.4
+RUN mkdir /app
+WORKDIR /app
+COPY requirements.txt ./requirements.txt
+RUN pip install -r requirements.txt
+COPY . /app
+EXPOSE 80
+RUN mkdir ~/.streamlit
+RUN cp config.toml ~/.streamlit/config.toml
+WORKDIR /app
+CMD streamlit run app.py --server.port 80 --server.enableWebsocketCompression=false
