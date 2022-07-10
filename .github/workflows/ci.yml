@@ -5,7 +5,7 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ master ]
+    branches: [ develop, master ]
   pull_request:
     branches: [ master ]
 
@@ -37,10 +37,10 @@ jobs:
 #        username: ${{ secrets.DOCKER_USERNAME }}
 #        password: ${{ secrets.DOCKER_PASSWORD }}
          
-  docker:
-    needs: build-java
-    runs-on: ubuntu-latest
-    steps:
+#  docker:
+#    needs: build-java
+#    runs-on: ubuntu-latest
+#    steps:
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
