@@ -38,6 +38,7 @@ jobs:
 #        password: ${{ secrets.DOCKER_PASSWORD }}
          
   docker:
+    needs: build-java
     runs-on: ubuntu-latest
     steps:
       -
