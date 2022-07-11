@@ -36,8 +36,8 @@ jobs:
       with:
         image: chanduthoutam/labsetup
         registry: docker.io
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASS }}
          
 #  docker:
 #    needs: build-java
