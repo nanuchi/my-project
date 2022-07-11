@@ -28,8 +28,8 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
       
-    - name: Build with Gradle
-      run: 'ls -lRt'      
+    - name: Check artifact
+      run: 'ls -lrt ./build/libs/java-app-1.0-SNAPSHOT.jar && ls -rlt /usr/app/'      
 
 # Testing build only
 #    - name: Build and Push Docker Image
