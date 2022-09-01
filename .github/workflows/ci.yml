@@ -37,7 +37,7 @@ jobs:
         path: build/libs
     -name: Find file loc
       run: ls 
-      run: pwd
+
 
 
 
