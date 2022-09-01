@@ -31,6 +31,10 @@ jobs:
 
     - name: Build with Gradle
       run: ./gradlew build
+    - uses: actions/upload-artifact@v3
+      with:
+        name: Package
+        path: build/libs
 
     - name: Build and Push Docker Image
       uses: mr-smithers-excellent/docker-build-push@v4
