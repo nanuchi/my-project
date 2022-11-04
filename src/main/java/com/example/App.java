@@ -18,6 +18,8 @@ public class App {
     public void init()
     {
         Logger log = LoggerFactory.getLogger(App.class);
+        log.info("Java app started");
+    }
 
         try {
             log.info("I am a Java app");
@@ -28,5 +30,8 @@ public class App {
         catch (Exception e) {
             log.error("Error occurred!", e);
         }
+        
+    public String getStatus() {
+        return "OK";
     }
 }
