@@ -21,6 +21,16 @@ public class App {
         log.info("Java app started");
     }
 
+        try {
+            log.info("I am a Java app");
+            log.info("Toto Tata Tutu");
+
+            throw new NullPointerException("Ooh noes! Something bad happened");
+        }
+        catch (Exception e) {
+            log.error("Error occurred!", e);
+        }
+        
     public String getStatus() {
         return "OK";
     }
