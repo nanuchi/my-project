@@ -36,7 +36,7 @@ jobs:
       run: ./gradlew build
 
     - name: Build and Push Docker Image
-      uses: mr-smithers-excellent/docker-build-push@v5 #https://github.com/marketplace/actions/docker-build-push-action
+      uses: mr-smithers-excellent/docker-build-push@v4 #https://github.com/marketplace/actions/docker-build-push-action
       with:
         image: estebanfallasf/demo-app
         registry: docker.io
