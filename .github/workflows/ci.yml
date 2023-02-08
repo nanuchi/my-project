@@ -38,7 +38,7 @@ jobs:
     - name: Build and Push Docker Image
       uses: mr-smithers-excellent/docker-build-push@v4 #https://github.com/marketplace/actions/docker-build-push-action
       with:
-        image: estebanfallasf/demo-app
+        image: estebanfallasf/private_repo
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
