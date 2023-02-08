@@ -33,7 +33,7 @@ jobs:
       run: chmod +x gradlew
 
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew build && ls -lhr *
 
     - name: Build and Push Docker Image
       uses: mr-smithers-excellent/docker-build-push@v5 #https://github.com/marketplace/actions/docker-build-push-action
