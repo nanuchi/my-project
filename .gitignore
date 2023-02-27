@@ -3,3 +3,5 @@
 .gradle/*
 out/
 build/
+Attic/
+.bash_history
