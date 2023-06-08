@@ -32,13 +32,16 @@ jobs:
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
         arguments: build
-    
-    - name: Build and Push Docker Image 
-      uses: mr-smithers-excellent/docker-build-push@v4
+
+    - uses: actions/checkout@v3
+      name: Check out code
+
+    - uses: mr-smithers-excellent/docker-build-push@v6
+      name: Build & push Docker image
       with:
-        image: elimax19/demoapp
-       # tags: v1, latest
+        image: repo/image
+        tags: v1, latest
         registry: registry-url.io
-       # dockerfile: Dockerfile.ci
+        dockerfile: Dockerfile.ci
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
