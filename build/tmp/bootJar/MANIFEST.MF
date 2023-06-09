@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Start-Class: com.example.App
-Spring-Boot-Classes: BOOT-INF/classes/
-Spring-Boot-Lib: BOOT-INF/lib/
-Spring-Boot-Version: 2.2.2.RELEASE
-Main-Class: org.springframework.boot.loader.JarLauncher
-
