@@ -17,6 +17,9 @@ jobs:
 
     - name: move into the new folder
       run: cd newFolder
+      
+    - name: check current location 
+      run: pwd
 
     - name: create a new text file
       run: touch newfile
