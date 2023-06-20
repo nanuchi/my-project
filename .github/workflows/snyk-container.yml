@@ -2,8 +2,11 @@ name: Snyk Security Scan
 
 on:
   push:
-
+    branches:
+      - main
   pull_request:
+    branches:
+      - main
 
 jobs:
   snyk_scan:
@@ -33,4 +36,4 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: |
           snyk auth $SNYK_TOKEN
-          snyk test --all-projects --all-sub-projects --all-versions
+          snyk test --all-projects --all-sub-projects --all-versions --json > snyk-results.json
