@@ -36,4 +36,4 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: |
           snyk auth $SNYK_TOKEN
-          snyk test --all-projects --all-sub-projects --all-versions --json > snyk-results.json
+          snyk test --all-projects --all-sub-projects --all-versions --docker --integration-name=github --integration-version=$GITHUB_SHA --detection-depth=all --print-deps --distribution=ubuntu
