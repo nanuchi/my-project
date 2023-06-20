@@ -1,4 +1,3 @@
-## adds comment
 name: Snyk Security Scan
 
 on:
@@ -32,9 +31,13 @@ jobs:
           sudo apt-get install -y nodejs
           sudo npm install -g snyk
 
+      - name: Set distribution environment variable
+        run: |
+          echo "SNYK_DOCKER_DISTRO=ubuntu" >> $GITHUB_ENV
+
       - name: Test application with Snyk
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: |
           snyk auth $SNYK_TOKEN
-          snyk test --all-projects --all-sub-projects --all-versions --docker --integration-name=github --integration-version=$GITHUB_SHA --detection-depth=all --print-deps --distribution=ubuntu
+          snyk test --all-projects --all-sub-projects --all-versions --docker --integration-name=github --integration-version=$GITHUB_SHA --detection-depth=all --print-deps
