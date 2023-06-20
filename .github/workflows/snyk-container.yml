@@ -1,0 +1,36 @@
+name: Snyk Security Scan
+
+on:
+  push:
+
+  pull_request:
+
+jobs:
+  snyk_scan:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+        
+      - name: Build and package the application
+        run: |
+          ./gradlew build
+
+      - name: Install Snyk CLI
+        run: |
+          curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+          sudo apt-get install -y nodejs
+          sudo npm install -g snyk
+
+      - name: Test application with Snyk
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: |
+          snyk auth $SNYK_TOKEN
+          snyk test --all-projects --all-sub-projects --all-versions
