@@ -1,4 +1,4 @@
-name: Greeting on variable day
+name: on push event workflow
 
 on:
   push
@@ -9,8 +9,6 @@ env:
 jobs:
   greeting_job:
     runs-on: ubuntu-latest
-    env:
-      Greeting: Hello
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -18,7 +16,5 @@ jobs:
       - name: Export env vars
         run: cat .env.production >> $GITHUB_ENV
       
-      - name: "Say Hello Mona it's Monday"
-        run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK! and your password is $PASS"
-        env:
-          First_Name: Mona
+      - name: "On push greet"
+        run: echo "Hi on push event launched password is: $PASS"

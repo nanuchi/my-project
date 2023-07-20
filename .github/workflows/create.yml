@@ -1,0 +1,20 @@
+name: on create event workflow
+
+on:
+  push
+
+env:
+  DAY_OF_WEEK: Monday
+
+jobs:
+  greeting_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Export env vars
+        run: cat .env.production >> $GITHUB_ENV
+      
+      - name: "On create greet"
+        run: echo "Hi on create event launched password is: $PASS"
