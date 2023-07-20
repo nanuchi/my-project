@@ -17,4 +17,4 @@ jobs:
         run: cat .env.production >> $GITHUB_ENV
       
       - name: "On push greet"
-        run: echo "Hi on push event launched password is: $PASS"
+        run: echo "Hi on push event launched password is $PASS"
