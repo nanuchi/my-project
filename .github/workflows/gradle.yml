@@ -32,3 +32,11 @@ jobs:
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
         arguments: build
+    - name: docker build image and push to my repo
+      uses: mr-smithers-excellent/docker-build-push@v6
+      with:
+        image: menesk2m/java-gradle
+        tags: v1
+        registry: docker.io
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
