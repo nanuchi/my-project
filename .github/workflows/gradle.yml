@@ -14,7 +14,10 @@ on:
     branches: [ "master" ]
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{matrix.os}}
+    strategy:
+     matrix:
+       os: [ubuntu-latest, windows-latest, macOs-latest]
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 11
