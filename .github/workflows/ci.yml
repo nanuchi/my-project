@@ -28,11 +28,20 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
 
-    - name: Build and Push Docker Image
-      uses: mr-smithers-excellent/docker-build-push@v4
+    - name: Docker Build Tag Publish
+      uses: bitovi/github-actions-docker-publish@v1.0.7
       with:
         image: prema6396/javanewproject
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-         
+  
+    - name: Docker Push
+        # You may pin to the exact commit or the version.
+        # uses: opspresso/action-docker@233ac522cc300320464ddd95cee4059986cc1587
+      uses: opspresso/action-docker@v0.4.0
+      with:
+          image: prema6396/javanewproject
+          registry: docker.io
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
