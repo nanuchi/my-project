@@ -48,6 +48,7 @@ jobs:
 
     - name: Build Docker image
       run: |
+      
         docker build -t prema6396/javanewproject:latest .
         docker images
         
