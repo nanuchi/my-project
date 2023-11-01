@@ -10,6 +10,7 @@ on:
     branches: [ master ]
 
 jobs:
+  
   build-java:
 
     runs-on: ubuntu-latest
@@ -27,12 +28,15 @@ jobs:
 
     - name: Build with Gradle
       run: ./gradlew build
+      
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
     - name: Set up Docker
       uses: docker/setup-docker@v2
       with:
-        dockerfile: Dockerfile
-        context: .
+         dockerfile: Dockerfile
+         context: .
 
     - name: Build Docker image
       run: |
