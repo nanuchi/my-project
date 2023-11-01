@@ -30,7 +30,7 @@ jobs:
     - name: Build with Gradle
       run: |
         ./gradlew build
-        working-directory: /home/demousr/actions-runner/_work/java-gradle-project/java-gradle-project/
+      working-directory: /home/demousr/actions-runner/_work/java-gradle-project/java-gradle-project/
     - name: Upload JAR as artifact
       uses: actions/upload-artifact@v2
       with:
