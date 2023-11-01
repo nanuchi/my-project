@@ -28,20 +28,18 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
 
-    - name: Docker Build Tag Publish
-      uses: bitovi/github-actions-docker-publish@v1.0.7
+    - name: Set up Docker
+      uses: docker/setup-docker@v2
       with:
-        image: prema6396/javanewproject
-        registry: docker.io
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-  
-    - name: Docker Push
-        # You may pin to the exact commit or the version.
-        # uses: opspresso/action-docker@233ac522cc300320464ddd95cee4059986cc1587
-      uses: opspresso/action-docker@v0.4.0
-      with:
-          image: prema6396/javanewproject
-          registry: docker.io
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+        dockerfile: Dockerfile
+        context: .
+
+    - name: Build Docker image
+      run: |
+        docker build -t prema6396/javanewproject:latest .
+        docker images
+        
+    - name: Push Docker image to Docker Hub
+      run: |
+        echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+        docker push your-docker-username/your-image-name:latest
