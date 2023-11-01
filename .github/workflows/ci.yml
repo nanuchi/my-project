@@ -28,6 +28,9 @@ jobs:
 
     - name: Build with Gradle
       run: ./gradlew build
+       ./gradlew -q showWorkingDirectory
+
+         
 
   build:
     needs: build-java
@@ -47,7 +50,7 @@ jobs:
     - name: Build Docker image
       run: |
         
-        docker build --no-cache -t prema6396/javanewproject:latest .
+        docker build -t prema6396/javanewproject:latest .
         docker images
         
     - name: Push Docker image to Docker Hub
