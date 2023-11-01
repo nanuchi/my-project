@@ -27,8 +27,9 @@ jobs:
       run: chmod +x gradlew
 
     - name: Build with Gradle
-      run: ./gradlew build
-       ./gradlew -q showWorkingDirectory
+      run: |
+        ./gradlew build
+        ./gradlew -q showWorkingDirectory
 
          
 
