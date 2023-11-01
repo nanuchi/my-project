@@ -38,7 +38,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up Docker
-      uses: docker/setup-docker@v2
+      uses: docker/setup-docker@v2.7.0 
       with:
          dockerfile: Dockerfile
          context: .
