@@ -42,13 +42,20 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build Docker image
-      run: |
+      run: docker build -t mydockerimage .
+  
+    - name: Tag Docker image
+      run: docker tag mydockerimage DOCKER_REPO:latest
 
-        docker build -t prema6396/javanewproject:latest .
+    - name: Build Docker image
+      run: |
+        docker build -t mydockerimage .
         docker images
+    - name: Tag Docker image
+      run: docker tag mydockerimage DOCKER_REPO:latest
         
         
     - name: Push Docker image to Docker Hub
       run: |
         echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-        docker push prema6396/javanewproject:latest
+        docker push DOCKER_REPO:latest
