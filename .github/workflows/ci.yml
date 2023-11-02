@@ -45,17 +45,17 @@ jobs:
       run: docker build -t mydockerimage .
   
     - name: Tag Docker image
-      run: docker tag mydockerimage DOCKER_REPO:latest
+      run: docker tag mydockerimage  ${{ secrets.DOCKER_REPO }}:latest
 
     - name: Build Docker image
       run: |
         docker build -t mydockerimage .
         docker images
     - name: Tag Docker image
-      run: docker tag mydockerimage DOCKER_REPO:latest
+      run: docker tag mydockerimage ${{ secrets.DOCKER_REPO }}:latest
         
         
     - name: Push Docker image to Docker Hub
       run: |
         echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-        docker push DOCKER_REPO:latest
+        docker push ${{ secrets.DOCKER_REPO }}:latest
