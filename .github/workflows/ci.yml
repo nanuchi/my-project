@@ -44,10 +44,7 @@ jobs:
     - name: Build Docker image
       run: docker build -t mydockerimage .
   
-    - name: Tag Docker image
-      run: docker tag mydockerimage  ${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
-        docker build -t mydockerimage .
-        docker images
+    
     - name: Tag Docker image
       run: docker tag mydockerimage ${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
         
