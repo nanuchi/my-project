@@ -36,12 +36,12 @@ jobs:
       - name: Download and run OWASP ZAP Docker container
         run: |
           docker pull owasp/zap2docker-stable
-          docker run --name zap2 -u zap -p 8000:8080 -d owasp/zap2docker-stable
+          docker run --name zap3 -u zap -p 8000:8080 -d owasp/zap2docker-stable
 
       - name: Run ZAP Spider and Active Scan
         run: |
-          docker exec zap zap-cli --url http://20.192.4.51:8000 -p 8080 -I
-          docker exec zap zap-cli --url http://20.192.4.51:8000 -p 8080 -c ascan -r '.*' -l High -I
+          docker exec zap3 zap-cli --url http://20.192.4.51:8000 -p 8080 -I
+          docker exec zap3 zap-cli --url http://20.192.4.51:8000 -p 8080 -c ascan -r '.*' -l High -I
 
       - name: Export ZAP Report
         run: |
