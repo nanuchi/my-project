@@ -54,8 +54,7 @@ jobs:
     
     - name: Tag Docker image
       run: docker tag mydockerimage ${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
-        
-        
+         
     - name: Push Docker image to Docker Hub
       run: |
         echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
