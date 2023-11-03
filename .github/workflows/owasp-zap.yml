@@ -36,7 +36,7 @@ jobs:
       - name: Download and run OWASP ZAP Docker container
         run: |
           docker pull owasp/zap2docker-stable
-          docker run --name zap1 -u zap -p 8000:8080 -d owasp/zap2docker-stable
+          docker run --name zap2 -u zap -p 8000:8080 -d owasp/zap2docker-stable
 
       - name: Run ZAP Spider and Active Scan
         run: |
