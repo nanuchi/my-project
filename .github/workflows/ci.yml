@@ -45,6 +45,8 @@ jobs:
       uses: actions/setup-node@v3
       with:
           node-version: '14'
+    - name: Authenticate Snyk
+      run: snyk auth
     - name: Run Snyk test
       run: |
           ./gradlew build
