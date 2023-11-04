@@ -45,16 +45,20 @@ jobs:
       uses: actions/setup-node@v3
       with:
           node-version: '14'
-    - name: Authenticate Snyk
-      run: snyk auth ${{ secrets.SNYK_TOKEN }}
+  
 
-
-    - name: Run Snyk test
+    - name: Snyk Security Scan
       run: |
-          ./gradlew build
-          npx snyk test
-      env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        cd /home/demousr/actions-runner/_work/java-gradle-project/java-gradle-project
+        snyk auth ${{ secrets.SNYK_TOKEN }}
+        ./gradlew build
+        snyk test
+
+    - name: Upload Snyk Results
+      uses: actions/upload-artifact@v2
+      with:
+        name: snyk-report
+        path: .snyk
   
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
