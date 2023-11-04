@@ -11,9 +11,7 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
-    mavenCentral()
-    
-    
+    mavenCentral()  
 }
 
 dependencies {
@@ -26,9 +24,7 @@ dependencies {
 
 
 
-snyk {
-    apiToken = "f4a06f85-06fd-472f-9cbd-a4e2f87baa15"
-}
+
 
 
 
