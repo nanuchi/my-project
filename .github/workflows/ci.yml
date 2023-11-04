@@ -42,7 +42,8 @@ jobs:
         name: test-reports
         path: build/reports/tests
     - name: Run Snyk test
-      run: 
+      run: |
+          ./gradlew build
           npx snyk test
       env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
