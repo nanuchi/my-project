@@ -5,9 +5,9 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   
@@ -41,7 +41,12 @@ jobs:
       with:
         name: test-reports
         path: build/reports/tests
-
+    - name: Run Snyk test
+      run: |
+          ./gradlew snykTest
+      env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+  
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
       with:
