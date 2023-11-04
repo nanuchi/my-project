@@ -47,6 +47,7 @@ jobs:
           node-version: '14'
     - name: Authenticate Snyk
       run: snyk auth
+      
     - name: Run Snyk test
       run: |
           ./gradlew build
