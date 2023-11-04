@@ -54,6 +54,8 @@ jobs:
         ./gradlew build
         snyk test
       continue-on-error: true
+    - name: List Files After Snyk
+      run: ls -R
     - name: Upload Snyk Results
       uses: actions/upload-artifact@v2
       with:
