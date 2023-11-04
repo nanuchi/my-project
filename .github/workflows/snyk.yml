@@ -1,0 +1,41 @@
+name: Snyk Security Scan
+
+on:
+  push:
+    branches:
+      - maain
+
+jobs:
+  snyk:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+
+      - name: Install Gradle
+        run: |
+          sudo apt-get install -yq --no-install-recommends \
+            openjfx \
+            && sudo apt-get clean \
+            && sudo rm -rf /var/lib/apt/lists/*
+          curl -s "https://get.sdkman.io" | bash
+          source "$HOME/.sdkman/bin/sdkman-init.sh"
+          sdk install gradle
+
+      - name: Snyk Security Scan
+        run: |
+          ./gradlew build
+          npx snyk test
+
+      - name: Upload Snyk Results
+        uses: actions/upload-artifact@v2
+        with:
+          name: snyk-report
+          path: .snyk
