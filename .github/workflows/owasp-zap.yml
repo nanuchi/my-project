@@ -1,6 +1,9 @@
 name: zap scan
-on: [push]
 
+on:
+  push:
+    branches:
+      - master
 jobs:
   zap_scan:
     runs-on: ubuntu-latest
