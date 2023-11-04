@@ -52,7 +52,7 @@ jobs:
         cd /home/demousr/actions-runner/_work/java-gradle-project/java-gradle-project
         snyk auth ${{ secrets.SNYK_TOKEN }}
         ./gradlew build
-        snyk test
+        snyk test --json > snyk-report.json
       continue-on-error: true
     - name: List Files After Snyk
       run: ls -R
@@ -60,7 +60,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: snyk-report
-        path: .snyk
+        path: snyk-report.json
   
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
