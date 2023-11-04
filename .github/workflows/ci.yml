@@ -41,6 +41,10 @@ jobs:
       with:
         name: test-reports
         path: build/reports/tests
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+          node-version: '14'
     - name: Run Snyk test
       run: |
           ./gradlew build
