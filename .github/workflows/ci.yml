@@ -62,20 +62,19 @@ jobs:
         name: snyk-report
         path: snyk-report.json
   
-    - name: Log in to Docker Hub
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Log in to nexus
+      run: docker login -u admin -p admin http://20.192.4.51:8081
+     
 
     - name: Build Docker image
       run: docker build -t mydockerimage .
   
     
     - name: Tag Docker image
-      run: docker tag mydockerimage ${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
+      
+      run: docker tag mydockerimage http://20.192.4.51:8081//${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
          
     - name: Push Docker image to Docker Hub
-      run: |
-        echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-        docker push ${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
+      run: docker push http://20.192.4.51:8081/${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
+      
+        
