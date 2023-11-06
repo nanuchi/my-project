@@ -43,7 +43,10 @@ jobs:
         path: build/reports/tests
 
     - name: SonarCloud Scan
-      run: ./gradlew sonarqube
+
+      run: |
+            ./gradlew wrapper --gradle-version=7.0
+            ./gradlew sonarqube
 
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
