@@ -87,11 +87,11 @@ jobs:
         run: |
           git config --global user.email "${{secrets.GIT_USER_MAIL}}"
           git config --global user.name "${{secrets.GIT_USER_NAME}}"
-          git clone https://$(GIT_PAT)@https://github.com/prema6396/Argocd.git
+          git clone https://github.com/prema6396/Argocd.git          
           cd Argocd
           sed -i "s|${{ secrets.DOCKER_REPO }}:.*|${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}|" deployment.yaml
           git add .
-          git commit -m "deployment file  updated"
+          git commit -m "deployment file updated"
           git push origin HEAD:main
        
        
