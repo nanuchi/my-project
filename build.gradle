@@ -32,6 +32,7 @@ sonarqube {
         property 'sonar.organization', 'prema6396-1'
         property 'sonar.host.url', 'https://sonarcloud.io'
         property 'sonar.login', '356ccdf13be1c022de26a74addab570d44db0f1a'
+        property 'sonar.analysis.mode', 'publish' // or 'incremental'
     }
 }
 
