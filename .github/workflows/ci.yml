@@ -70,9 +70,9 @@ jobs:
     
     - name: Tag Docker image
       
-      run: docker tag mydockerimage 40.81.232.83:8081/${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
+      run: docker tag mydockerimage 40.81.232.83:8084/${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
          
     - name: Push Docker image to Docker Hub
-      run: docker push 40.81.232.83:8081/${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
+      run: docker push 40.81.232.83:8084/${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
       
         
