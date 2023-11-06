@@ -63,18 +63,16 @@ jobs:
         path: snyk-report.json
   
     - name: Log in to nexus
-      run: docker login -u admin -p admin https://20.192.4.51:8081
-     
+      run: docker login -u admin -p admin123 40.81.232.83:8084
 
     - name: Build Docker image
       run: docker build -t mydockerimage .
-  
     
     - name: Tag Docker image
       
-      run: docker tag mydockerimage https://20.192.4.51:8081//${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
+      run: docker tag mydockerimage 40.81.232.83:8081/${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
          
     - name: Push Docker image to Docker Hub
-      run: docker push https://20.192.4.51:8081/${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
+      run: docker push 40.81.232.83:8081/${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
       
         
