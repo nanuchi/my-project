@@ -56,6 +56,7 @@ jobs:
         ./gradlew build
         snyk test --json > snyk-report.json
       continue-on-error: true
+      
     - name: List Files After Snyk
       run: ls -R
     - name: Upload Snyk Results
