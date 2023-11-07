@@ -84,18 +84,23 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+        with: 
+          repository: prema6396/Argocd
+          ref: main
+          token: ${{secrets.GIT_PAT}}
 
       - name: deploy
         run: |
           git config --global user.email "${{secrets.GIT_USER_MAIL}}"
-          git config --global user.name "${{secrets.GIT_USER_NAME}}"
-          git clone git@github.com:prema6396/Argocd.git
-                    
+          git config --global user.name "${{secrets.GIT_USER_NAME}}"       
           cd Argocd
           sed -i "s|${{ secrets.DOCKER_REPO }}:.*|${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}|" deployment.yaml
           git add .
           git commit -m "deployment file updated"
           git push origin HEAD:main
+        env:
+          GIT_PAT: ${{secrets.GIT_PAT}}
+
        
        
       
