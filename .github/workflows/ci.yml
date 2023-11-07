@@ -42,16 +42,7 @@ jobs:
         name: test-reports
         path: build/reports/tests
 
-    - name: SonarCloud Scan
-
-      run: |
-            ./gradlew wrapper --gradle-version=7.0
-            ./gradlew sonarqube
-
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
+   
     - name: Install Node.js
       uses: actions/setup-node@v3
       with:
@@ -62,7 +53,6 @@ jobs:
       run: |
         cd /home/demousr/actions-runner/_work/java-gradle-project/java-gradle-project
         snyk auth ${{ secrets.SNYK_TOKEN }}
-        ./gradlew build
         snyk test --json > snyk-report.json
       continue-on-error: true
     - name: List Files After Snyk
