@@ -78,7 +78,6 @@ jobs:
       
   deploy:
     runs-on: self-hosted
-
     needs: Build
     steps:
       - name: Checkout Repository
