@@ -3,11 +3,15 @@ plugins {
     id 'org.springframework.boot' version '2.2.2.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'org.sonarqube' version '3.3'
+    id 'jacoco'
     
 }
 
 group 'com.example'
 version '1.0-SNAPSHOT'
+jacoco {
+    toolVersion = "0.8.7"
+}
 
 sourceCompatibility = 1.8
 
@@ -24,6 +28,8 @@ dependencies {
 }
 test {
     useJUnit()
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport // Attach JaCoCo report generation to the test task
 }
 
 sonarqube {
@@ -33,6 +39,15 @@ sonarqube {
         property 'sonar.host.url', 'https://sonarcloud.io'
         property 'sonar.login', '356ccdf13be1c022de26a74addab570d44db0f1a'
         property 'sonar.analysis.mode', 'publish' // or 'incremental'
+    }
+}
+
+
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled true
     }
 }
 

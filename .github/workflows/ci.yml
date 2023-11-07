@@ -44,22 +44,18 @@ jobs:
         name: test-reports
         path: build/reports/tests
 
-         
-    - name: 
-      uses: actions/checkout@v3
+    - name: Build and run tests
+      run: ./gradlew clean build
+  
+    - name: Generate JaCoCo reports
+      run: ./gradlew jacocoTestReport
+  
+    - name: Upload JaCoCo reports
+      uses: actions/upload-artifact@v2
       with:
-        # Disabling shallow clone is recommended for improving relevancy of reporting
-       fetch-depth: 0
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-      #- name: SonarQube Scan
-       #run: ./gradlew sonarqube
-      #env:
-          #SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          name: jacoco-reports
+          path: build/reports/jacoco/test/html   
+    
 
     - name: Install Node.js
       uses: actions/setup-node@v3
