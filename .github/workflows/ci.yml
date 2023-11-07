@@ -89,7 +89,7 @@ jobs:
         run: |
           git config --global user.email "${{secrets.GIT_USER_MAIL}}"
           git config --global user.name "${{secrets.GIT_USER_NAME}}"
-          git clone git@github.com/prema6396/Argocd.git
+          git clone git@github.com:prema6396/Argocd.git
                     
           cd Argocd
           sed -i "s|${{ secrets.DOCKER_REPO }}:.*|${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}|" deployment.yaml
