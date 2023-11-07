@@ -53,6 +53,7 @@ jobs:
       run: |
         cd /home/demousr/actions-runner/_work/java-gradle-project/java-gradle-project
         snyk auth ${{ secrets.SNYK_TOKEN }}
+        ./gradlew build
         snyk test --json > snyk-report.json
       continue-on-error: true
     - name: List Files After Snyk
@@ -79,7 +80,7 @@ jobs:
   deploy:
     runs-on: self-hosted
     needs: Build
-    
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -88,7 +89,8 @@ jobs:
         run: |
           git config --global user.email "${{secrets.GIT_USER_MAIL}}"
           git config --global user.name "${{secrets.GIT_USER_NAME}}"
-          git clone https://github.com/prema6396/Argocd.git          
+          git clone git@github.com/prema6396/Argocd.git
+                    
           cd Argocd
           sed -i "s|${{ secrets.DOCKER_REPO }}:.*|${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}|" deployment.yaml
           git add .
