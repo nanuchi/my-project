@@ -25,34 +25,33 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Build with Gradle
-      run: ./gradlew build
-        
-      
-    - name: Upload JAR as artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: gradleartifact  
-        path: /home/demousr/actions-runner/_work/java-gradle-project/java-gradle-project/build/libs/*.jar 
-    - name: Run tests
-      run: ./gradlew test  
-    - name: Archive test reports
-      uses: actions/upload-artifact@v2
-      with:
-        name: test-reports
-        path: build/reports/tests
+   # - name: Build with Gradle
+    #  run: ./gradlew build
+    - name: Run Tests
+      run: ./gradlew test
 
-    - name: Build and run tests
-      run: ./gradlew clean build
-  
-    - name: Generate JaCoCo reports
+    - name: Run Test Coverage
       run: ./gradlew jacocoTestReport
-  
-    - name: Upload JaCoCo reports
-      uses: actions/upload-artifact@v2
+
+    - name: Generate JaCoCo Badge
+      uses: cicirello/jacoco-badge-generator@v2
       with:
-          name: jacoco-reports
-          path: build/reports/jacoco/test/html   
+        generate-branches-badge: true
+        jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv
+      
+    #- name: Upload JAR as artifact
+     # uses: actions/upload-artifact@v2
+      #with:
+       # name: gradleartifact  
+        #path: /home/demousr/actions-runner/_work/java-gradle-project/java-gradle-project/build/libs/*.jar 
+    #- name: Run tests
+     # run: ./gradlew test  
+    #- name: Archive test reports
+      #uses: actions/upload-artifact@v2
+      #with:
+       # name: test-reports
+       # path: build/reports/tests
+
     
 
     - name: Install Node.js
