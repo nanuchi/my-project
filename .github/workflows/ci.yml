@@ -9,9 +9,26 @@ on:
   pull_request:
     branches: [ master ]
 
+
 jobs:
+ secret-detection: 
+      runs-on: self-hosted
+      steps:
+      - uses: actions/checkout@v2
+      - name: detect secrets
+        run: |
+            pip install detect-secrets
+            scan_result=$(detect-secrets scan)
+            if echo "$scan_result" | grep -q '"hashed_secret":'; then
+            echo "Secrets were found during the scan:"
+            echo "$scan_result"
+            #exit 1
+            else
+            echo "No secrets were found."
+            fi
+            echo "Current Directory (PWD): $PWD"
   
-  Build:
+ Build:
   
     runs-on: self-hosted
     steps:
@@ -87,7 +104,9 @@ jobs:
     - name: Push Docker image to Nexus
       run: docker push ${{ secrets.NEXUS_URL }}/${{ secrets.NEXUS_REPO }}:${GITHUB_RUN_NUMBER}
       
-  deploy:
+ 
+ Deploy:
+
     runs-on: self-hosted
     needs: Build
     steps:
