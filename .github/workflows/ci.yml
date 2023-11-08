@@ -74,17 +74,17 @@ jobs:
         path: snyk-report.json
   
     - name: Log in to nexus
-      run: docker login -u admin -p admin123 40.81.232.83:8084
+      run: docker login -u ${{ secrets.NEXUS_USERNAME}} -p ${{ secrets.NEXUS_PASSWORD}} ${{ secrets.NEXUS_URL}}
 
     - name: Build Docker image
       run: docker build -t mydockerimage .
     
     - name: Tag Docker image
       
-      run: docker tag mydockerimage 40.81.232.83:8084/${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
+      run: docker tag mydockerimage ${{ secrets.NEXUS_URL }}/${{ secrets.NEXUS_REPO }}:${GITHUB_RUN_NUMBER}
          
     - name: Push Docker image to Nexus
-      run: docker push 40.81.232.83:8084/${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
+      run: docker push ${{ secrets.NEXUS_URL }}/${{ secrets.NEXUS_REPO }}:${GITHUB_RUN_NUMBER}
       
   deploy:
     runs-on: self-hosted
@@ -102,7 +102,7 @@ jobs:
           git config --global user.email "${{secrets.GIT_USER_MAIL}}"
           git config --global user.name "${{secrets.GIT_USER_NAME}}"       
           
-          sed -i "s|${{ secrets.DOCKER_REPO }}:.*|${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}|" deployment.yaml
+          sed -i "s|${{ secrets.NEXUS_REPO }}:.*|${{ secrets.NEXUS_REPO }}:${GITHUB_RUN_NUMBER}|" deployment.yaml
           git add .
           git commit -m "deployment file updated"
           git push origin HEAD:main
