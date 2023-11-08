@@ -95,7 +95,10 @@ jobs:
 
     - name: Build Docker image
       run: docker build -t mydockerimage .
-    
+
+    - name: Trivy scan
+      run: trivy --severity LOW,MEDIUM mydockerimage
+
     - name: Tag Docker image
       
       run: docker tag mydockerimage ${{ secrets.NEXUS_URL }}/${{ secrets.NEXUS_REPO }}:${GITHUB_RUN_NUMBER}
