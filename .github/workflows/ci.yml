@@ -97,7 +97,7 @@ jobs:
       run: docker build -t mydockerimage .
 
     - name: Trivy scan
-      run: trivy --severity LOW,MEDIUM mydockerimage --json > trivy-report.json
+      run: trivy --severity LOW,MEDIUM mydockerimage > trivy-report.json
 
     - name: Tag Docker image
       
