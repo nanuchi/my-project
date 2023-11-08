@@ -38,6 +38,9 @@ sonarqube {
         property 'sonar.analysis.mode', 'publish' // or 'incremental'
     }
 }
+jacoco {
+    toolVersion = "0.8.7" // Set the appropriate version
+}
 
 
 
