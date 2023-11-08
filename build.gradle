@@ -8,9 +8,7 @@ plugins {
 }
 
 
-tasks.jacocoTestReport {    reports {        csv.isEnabled = true
-    }
-}
+
 group 'com.example'
 version '1.0-SNAPSHOT'
 
