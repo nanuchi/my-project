@@ -3,10 +3,14 @@ plugins {
     id 'org.springframework.boot' version '2.2.2.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'org.sonarqube' version '3.3'
-   
+    jacoco
     
 }
 
+
+tasks.jacocoTestReport {    reports {        csv.isEnabled = true
+    }
+}
 group 'com.example'
 version '1.0-SNAPSHOT'
 
