@@ -28,12 +28,22 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
   
-      
+    - name: Add coverage to PR
+      id: jacoco
+      uses: madrapps/jacoco-report@v1.6.1
+      with:
+           paths: |
+            build/reports/jacoco/prodNormalDebugCoverage/prodNormalDebugCoverage.xml,
+            build/reports/jacoco/**/debugCoverage.xml
+           token: ${{ secrets.GITHUB_TOKEN }}
+           min-coverage-overall: 40
+           min-coverage-changed-files: 60
     - name: Upload JAR as artifact
       uses: actions/upload-artifact@v2
       with:
         name: gradleartifact  
         path: /home/demousr/actions-runner/_work/java-gradle-project/java-gradle-project/build/libs/*.jar 
+
     - name: Run tests
       run: ./gradlew test  
     - name: Archive test reports
@@ -42,14 +52,11 @@ jobs:
         name: test-reports
         path: build/reports/tests
 
-    
-
     - name: Install Node.js
       uses: actions/setup-node@v3
       with:
           node-version: '14'
   
-
     - name: Snyk Security Scan
       run: |
         cd /home/demousr/actions-runner/_work/java-gradle-project/java-gradle-project
@@ -76,7 +83,7 @@ jobs:
       
       run: docker tag mydockerimage 40.81.232.83:8084/${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
          
-    - name: Push Docker image to Docker Hub
+    - name: Push Docker image to Nexus
       run: docker push 40.81.232.83:8084/${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
       
   deploy:
