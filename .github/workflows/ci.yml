@@ -101,7 +101,13 @@ jobs:
 
         # trivy --severity LOW,MEDIUM mydockerimage > trivy-report.json
          trivy --severity HIGH,CRITICAL mydockerimage > trivy-report.json
-         
+
+    - name: Upload Trivy Report
+      uses: actions/upload-artifact@v2
+      with:
+           name: trivy-report
+           path: trivy-report.json
+
     - name: Tag Docker image
       
       run: docker tag mydockerimage ${{ secrets.NEXUS_URL }}/${{ secrets.NEXUS_REPO }}:${GITHUB_RUN_NUMBER}
