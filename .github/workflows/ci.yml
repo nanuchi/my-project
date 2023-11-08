@@ -97,7 +97,7 @@ jobs:
           repository: prema6396/Argocd
           ref: main
           token: ${{secrets.GIT_PAT}}
-
+          
       - name: deploy
         run: |
           git config --global user.email "${{secrets.GIT_USER_MAIL}}"
@@ -107,7 +107,7 @@ jobs:
           git add .
           git commit -m "deployment file updated"
           git push origin HEAD:main
-          
+
         env:
           GIT_PAT: ${{secrets.GIT_PAT}}
 
