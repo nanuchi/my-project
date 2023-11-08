@@ -9,24 +9,11 @@ on:
   pull_request:
     branches: [ master ]
 
+  workflow_dispatch:
 jobs:
  secret-detection: 
-      runs-on: ubuntu-latest
-      steps:
-      - uses: actions/checkout@v2
-      - name: detect secrets
-        run: |
-            pip install detect-secrets
-            scan_result=$(detect-secrets scan)
-            if echo "$scan_result" | grep -q '"hashed_secret":'; then
-            echo "Secrets were found during the scan:"
-            echo "$scan_result"
-            #exit 1
-            else
-            echo "No secrets were found."
-            fi
-            echo "Current Directory (PWD): $PWD"
-  
+    uses: ./.github/workflows/secret.yml
+      
  Build:
     needs: secret-detection
     runs-on: self-hosted
@@ -115,7 +102,6 @@ jobs:
     - name: Push Docker image to Nexus
       run: docker push ${{ secrets.NEXUS_URL }}/${{ secrets.NEXUS_REPO }}:${GITHUB_RUN_NUMBER}
       
- 
  Deploy:
 
     runs-on: self-hosted
