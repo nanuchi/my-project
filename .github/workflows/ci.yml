@@ -8,7 +8,7 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-    
+
 jobs:
  secret-detection: 
       runs-on: self-hosted
@@ -28,7 +28,7 @@ jobs:
             echo "Current Directory (PWD): $PWD"
   
  Build:
-  
+    needs: secret-detection
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v2
