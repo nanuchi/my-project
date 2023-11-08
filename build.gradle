@@ -41,6 +41,11 @@ sonarqube {
 jacoco {
     toolVersion = "0.8.7" // Set the appropriate version
 }
+tasks.jacocoTestReport {   
+     reports {       
+         csv.isEnabled = true
+    }
+}
 
 
 
