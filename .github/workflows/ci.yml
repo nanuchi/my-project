@@ -73,8 +73,8 @@ jobs:
         name: snyk-report
         path: snyk-report.json
   
-    - name: Log in to nexus
-      run: docker login -u graglecont -p kYs9+vD0pqeY/sPPXjdHeyh7uChq0oFVYW7QTwCTv0+ACRBu868E graglecont.azurecr.io 
+    - name: Log in to ACR
+      run: docker login -u ${{secrets.ACR_USERNAME}} -p ${{secrets.ACR_PASSWORD}} ${{secrets.ACR_URL}} 
 
     - name: Build Docker image
       run: docker build -t mydockerimage .
@@ -93,10 +93,10 @@ jobs:
 
     - name: Tag Docker image
       
-      run: docker tag mydockerimage graglecont.azurecr.io/prema6396/javanewproject:${GITHUB_RUN_NUMBER}
+      run: docker tag mydockerimage graglecont.azurecr.io/${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
          
     - name: Push Docker image to Nexus
-      run: docker push graglecont.azurecr.io/prema6396/javanewproject:${GITHUB_RUN_NUMBER}
+      run: docker push graglecont.azurecr.io/${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
       
  Deploy:
 
@@ -115,7 +115,7 @@ jobs:
           git config --global user.email "${{secrets.GIT_USER_MAIL}}"
           git config --global user.name "${{secrets.GIT_USER_NAME}}"       
           
-          sed -i "s|${{ secrets.NEXUS_REPO }}:.*|${{ secrets.NEXUS_REPO }}:${GITHUB_RUN_NUMBER}|" deployment.yaml
+          sed -i "s|${{ secrets.DOCKER_REPO }}:.*|${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}|" deployment.yaml
           git add .
           git commit -m "deployment file updated"
           git push origin HEAD:main
