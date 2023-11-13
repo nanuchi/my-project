@@ -12,6 +12,7 @@ on:
   workflow_dispatch:
 jobs:
  secret-detection: 
+  
     uses: ./.github/workflows/secret.yml
       
  Build:
