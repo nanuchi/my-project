@@ -99,7 +99,6 @@ jobs:
       run: docker push graglecont.azurecr.io/${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
       
  Deploy:
-
     runs-on: self-hosted
     needs: Build
     steps:
@@ -115,7 +114,7 @@ jobs:
           git config --global user.email "${{secrets.GIT_USER_MAIL}}"
           git config --global user.name "${{secrets.GIT_USER_NAME}}"       
           
-          sed -i "s|${{ secrets.DOCKER_REPO }}:.*|${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}|" deployment.yaml
+          sed -i "s|graglecont.azurecr.io/${{ secrets.DOCKER_REPO }}:.*|graglecont.azurecr.io/${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}|" deployment.yaml
           git add .
           git commit -m "deployment file updated"
           git push origin HEAD:main
