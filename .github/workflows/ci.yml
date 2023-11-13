@@ -93,10 +93,10 @@ jobs:
 
     - name: Tag Docker image
       
-      run: docker tag website graglecont.azurecr.io/website:${GITHUB_RUN_NUMBER}
+      run: docker tag mydockerimage graglecont.azurecr.io/prema6396/javanewproject:${GITHUB_RUN_NUMBER}
          
     - name: Push Docker image to Nexus
-      run: docker push graglecont.azurecr.io/website:${GITHUB_RUN_NUMBER}
+      run: docker push graglecont.azurecr.io/prema6396/javanewproject:${GITHUB_RUN_NUMBER}
       
  Deploy:
 
