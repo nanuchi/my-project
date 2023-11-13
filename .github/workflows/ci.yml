@@ -100,7 +100,7 @@ jobs:
       run: docker push graglecont.azurecr.io/${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
       
  Deploy:
-    needs: Build
+    
     uses: prema6396/privaterepo/.github/workflows/deploy.yml@main
     
      
