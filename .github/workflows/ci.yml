@@ -101,7 +101,7 @@ jobs:
       
  Deploy:
     needs: Build
-    uses: prema6396/privaterepo/.github/workflows/deploy.yml@v2
+    uses: prema6396/privaterepo/.github/workflows/deploy.yml@main
     
      
 
