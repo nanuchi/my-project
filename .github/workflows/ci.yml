@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 jobs:
  secret-detection: 
-  
+
     uses: ./.github/workflows/secret.yml
       
  Build:
@@ -102,7 +102,7 @@ jobs:
  Deploy:
     
     needs: Build
-    uses: prema6396/privaterepo/.github/workflows/deploy.yml
+    uses: prema6396/privaterepo/.github/workflows/deploy.yml@v2
     
      
 
