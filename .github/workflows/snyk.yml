@@ -1,0 +1,26 @@
+name: Snyk Scan
+
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  snyk-scan:
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '11'
+
+    - name: Run Snyk test
+      run: |
+        ./gradlew snykTest
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

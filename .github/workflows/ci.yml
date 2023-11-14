@@ -9,30 +9,103 @@ on:
   pull_request:
     branches: [ master ]
 
+  workflow_dispatch:
 jobs:
-  build-java:
+ secret-detection: 
 
-    runs-on: ubuntu-latest
-    
+    uses: ./.github/workflows/secret.yml
+      
+ Build:
+    needs: secret-detection
+    runs-on: self-hosted
     steps:
     - uses: actions/checkout@v2
 
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
-        java-version: 1.8
+        java-version: 11.0
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
     - name: Build with Gradle
       run: ./gradlew build
-
-    - name: Build and Push Docker Image
-      uses: mr-smithers-excellent/docker-build-push@v4
+    - name: Upload JAR as artifact
+      uses: actions/upload-artifact@v2
       with:
-        image: nanajanashia/demo-app
-        registry: docker.io
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+        name: gradleartifact  
+        path: /home/demousr/actions-runner/_work/java-gradle-project/java-gradle-project/build/libs/*.jar
+    - name: Run Tests
+      run: ./gradlew test
+    - name: Archive test reports
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-reports
+        path: build/reports/tests
+  
+    - name: Run Test Coverage
+      run: ./gradlew jacocoTestReport
+  
+    - name: Generate JaCoCo Badge
+      uses: cicirello/jacoco-badge-generator@v2
+      with:
+          generate-branches-badge: true
+          jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv
+
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+          node-version: '14'
+  
+    - name: Snyk Security Scan
+      run: |
+        cd /home/demousr/actions-runner/_work/java-gradle-project/java-gradle-project
+        snyk auth ${{ secrets.SNYK_TOKEN }}
+        ./gradlew build
+        snyk test --json > snyk-report.json
+      continue-on-error: true
+
+    - name: List Files After Snyk
+      run: ls -R
+    - name: Upload Snyk Results
+      uses: actions/upload-artifact@v2
+      with:
+        name: snyk-report
+        path: snyk-report.json
+  
+    - name: Log in to ACR
+      run: docker login -u ${{secrets.ACR_USERNAME}} -p ${{secrets.ACR_PASSWORD}} ${{secrets.ACR_URL}} 
+
+    - name: Build Docker image
+      run: docker build -t mydockerimage .
+
+    - name: Trivy scan
+      run: |
+
+        # trivy --severity LOW,MEDIUM mydockerimage > trivy-report.json
+         trivy --severity HIGH,CRITICAL mydockerimage > trivy-report.json
+
+    - name: Upload Trivy Report
+      uses: actions/upload-artifact@v2
+      with:
+           name: trivy-report
+           path: trivy-report.json
+
+    - name: Tag Docker image
+      
+      run: docker tag mydockerimage graglecont.azurecr.io/${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
          
+    - name: Push Docker image to ACR
+      run: docker push graglecont.azurecr.io/${{ secrets.DOCKER_REPO }}:${GITHUB_RUN_NUMBER}
+      
+ Deploy:
+  
+    uses: prema6396/privaterepo/.github/workflows/deploy.yml@main
+    
+     
+
+       
+       
+      
+        

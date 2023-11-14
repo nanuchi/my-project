@@ -2,19 +2,60 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.2.2.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'org.sonarqube' version '3.3'
+    id 'jacoco'
+    
 }
 
 group 'com.example'
 version '1.0-SNAPSHOT'
 
+
 sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    jcenter()  
 }
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    compile group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '5.2'
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation 'net.logstash.logback:logstash-logback-encoder:5.2'
+    testImplementation 'junit:junit:4.13'
+    
 }
+test {
+    useJUnit()
+    
+}
+
+sonarqube {
+    properties {
+        property 'sonar.projectKey', 'prema6396_java-gradle-project'
+        property 'sonar.organization', 'prema6396-1'
+        property 'sonar.host.url', 'https://sonarcloud.io'
+        property 'sonar.login', '356ccdf13be1c022de26a74addab570d44db0f1a'
+        property 'sonar.analysis.mode', 'publish' // or 'incremental'
+    }
+}
+jacoco {
+    toolVersion = "0.8.7" // Set the appropriate version
+}
+
+
+jacocoTestReport {
+    reports {
+        csv.enabled true
+    }
+}
+
+check.dependsOn jacocoTestReport
+
+
+
+
+
+
+
+
+
