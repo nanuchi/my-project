@@ -24,4 +24,7 @@ public class App {
     public String getStatus() {
         return "OK";
     }
+   // new line
+   // Another new line
+
 }
