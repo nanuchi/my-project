@@ -44,6 +44,6 @@ jobs:
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        tag: ${{ steps.docker_tag.outputs.TAG }}
+        tag: githubactions_gradle_docker
    
          
