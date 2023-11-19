@@ -30,11 +30,13 @@ jobs:
       run: ./gradlew build
 
     - name: Build and Push Docker Image
+      if: github.event_name == 'push'
       uses: mr-smithers-excellent/docker-build-push@v4
       with:
         image: arunkumar611/all
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        tags: "githubactions-${{ github.event_name }}-${{ github.run_id }}"
+        tag: "your-tag"
+   
          
