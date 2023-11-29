@@ -1,3 +1,4 @@
+## This project was made to run under linux not windows or powershell. Can be force to run but who has time for that.
 ##### build the project
 
     ./gradlew build
