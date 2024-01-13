@@ -1,3 +1,6 @@
+# This workflow will build a Java project with Gradle
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
 name: Java CI with Gradle
 
 on:
@@ -24,18 +27,6 @@ jobs:
 
     - name: Build with Gradle
       run: ./gradlew build
-
-    - name: List JAR files in build/libs
-      run: ls build/libs/
-
-    - name: Create Docker context directory
-      run: mkdir -p ./docker-context/
-
-    - name: Copy JAR file to Docker context
-      run: cp build/libs/*.jar ./docker-context/
-
-    - name: List contents of Docker context directory
-      run: ls -al ./docker-context/
       
     - name: Build and Push Docker Image
       uses: mr-smithers-excellent/docker-build-push@v4
