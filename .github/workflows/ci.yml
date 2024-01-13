@@ -25,11 +25,13 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
 
-    # New step to list JAR files in build/libs
     - name: List JAR files in build/libs
       run: ls build/libs/
 
-    # Updated step to copy JAR file using a wildcard
+    # New step to create the docker-context directory if it doesn't exist
+    - name: Create Docker context directory
+      run: mkdir -p ./docker-context/
+
     - name: Copy JAR file to Docker context
       run: cp build/libs/*.jar ./docker-context/
 
