@@ -1,6 +1,3 @@
-# This workflow will build a Java project with Gradle
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
-
 name: Java CI with Gradle
 
 on:
@@ -28,11 +25,16 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
 
+    # New step to list JAR files in build/libs
+    - name: List JAR files in build/libs
+      run: ls build/libs/
+
+    # Updated step to copy JAR file using a wildcard
+    - name: Copy JAR file to Docker context
+      run: cp build/libs/*.jar ./docker-context/
+
     - name: Build and Push Docker Image
       run: |
-        cp build/libs/my-app-1.0-SNAPSHOT.jar ./docker-context/
         docker build -t bruklemma/java-demo-app ./docker-context
         docker login docker.io -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         docker push bruklemma/java-demo-app
-
-         
