@@ -29,7 +29,6 @@ jobs:
       run: ./gradlew build
 
     - name: Build and Push Docker Image
-    - name: Build and Push Docker Image
       run: |
         cp build/libs/my-app-1.0-SNAPSHOT.jar ./docker-context/
         docker build -t bruklemma/java-demo-app ./docker-context
