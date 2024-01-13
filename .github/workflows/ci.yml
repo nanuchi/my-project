@@ -36,9 +36,12 @@ jobs:
 
     - name: List contents of Docker context directory
       run: ls -al ./docker-context/
-
+      
     - name: Build and Push Docker Image
-      run: |
-        docker build -t ***/java-demo-app -f Dockerfile ./docker-context
-        docker login docker.io -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        docker push ***/java-demo-app
+      uses: mr-smithers-excellent/docker-build-push@v4
+      with:
+        image: bruklemma/java-demo-app
+        registry: docker.io
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+         
