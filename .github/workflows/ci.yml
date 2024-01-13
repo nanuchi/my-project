@@ -34,12 +34,11 @@ jobs:
     - name: Copy JAR file to Docker context
       run: cp build/libs/*.jar ./docker-context/
 
-    # New step to list the contents of the Docker context directory
     - name: List contents of Docker context directory
       run: ls -al ./docker-context/
 
     - name: Build and Push Docker Image
       run: |
-        docker build -t bruklemma/java-demo-app ./docker-context
+        docker build -t ***/java-demo-app -f Dockerfile ./docker-context
         docker login docker.io -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        docker push bruklemma/java-demo-app
+        docker push ***/java-demo-app
