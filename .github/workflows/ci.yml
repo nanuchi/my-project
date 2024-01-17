@@ -41,6 +41,7 @@ jobs:
       
     -  name: Build and push
        uses: docker/build-push-action@v5
+       working-directory: .
        with:
          push: true
          tags: denchikkarate/demo-app:latest
