@@ -32,6 +32,7 @@ jobs:
       with:
         image: denchikkarate/demo-app
         registry: docker.io
+        tags: latest
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
          
