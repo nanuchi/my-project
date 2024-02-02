@@ -30,9 +30,9 @@ jobs:
 
     - name: Build and Push Docker Image
       uses: mr-smithers-excellent/docker-build-push@v4
-    - run: docker build -t durai54/java-app
+    - run: docker build -t durai54/my-app
     - name: Publish Image to docker hub
-    - run: docker push durai54/java-app
+    - run: docker push durai54/my-app
        with
           registry:docker.io
            username:${{ secrets.DOCKER_USERNAME }}
