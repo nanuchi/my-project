@@ -29,5 +29,5 @@ jobs:
       run: ./gradlew build
 
     - name: Build and Push Docker Image
-       run: docker build .
+      run: docker build .
          
