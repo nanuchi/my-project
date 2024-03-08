@@ -36,6 +36,6 @@ jobs:
 
     - name: Build and push to dockerhub
       run: |
-        docker build -t myapp .
+        docker --build-arg ARG1="$(ARG1)"
         docker image push --all-tags 
          
