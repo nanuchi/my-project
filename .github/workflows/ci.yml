@@ -37,7 +37,7 @@ jobs:
     - name: Build and push to dockerhub
       uses: docker/build-push-action@v5
       with:
-        context: Dockerfile
+        context: .
         push: true
         tags: user/app:latest
          
